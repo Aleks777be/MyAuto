@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>MyAuto</title>
+        <meta charset="utf-8">
+        <meta name="description" content="Приложение для управления продажами">
+        <link rel="shortcut icon" href="C:\Users\User\Desktop\Снимок экрана 2025-11-03 125010.png"/>
+        <link rel="stylesheet" href="style.css"/>
+    </head>
+    <body class="form-hidden">
+        <div>
+            </div>
+                <div class="header-container">
+                    <img src="logo.jpg" alt="лого компании" class="logo">
+                    <h1 class="company-title">byAuto</h1>
+                <div class="line-container">
+                    <hr class="red-line">
+                <div class="button-container">
+                    <button id="openBtn" class="btn">Клиенты</button>
+                    <button id="openBtn" class="btn">Склад</button>
+                </div>
+            </div>
+        </div>
+        <form id="myForm" class="form-two-columns">
+            <!-- Левая колонка: 6 одинаковых полей -->
+            <div class="column left-column">
+                <div class="form-group">
+                    <label for="left1">Фамилия</label>
+                    <input type="text" id="left1" name="left1">
+                </div>
+                <div class="form-group">
+                    <label for="left2">Имя</label>
+                    <input type="text" id="left2" name="left2">
+                </div>
+                <div class="form-group">
+                    <label for="left3">Отчество</label>
+                    <input type="text" id="left3" name="left3">
+                </div>
+                <div class="form-group">
+                    <label for="left4">Дата рождения</label>
+                    <input type="text" id="left4" name="left4">
+                </div>
+                <div class="form-group">
+                    <label for="left5">Телефон</label>
+                    <input type="text" id="left5" name="left5">
+                </div>
+                <div class="form-group">
+                    <label for="left6">Email</label>
+                    <input type="text" id="left6" name="left6">
+                </div>
+            </div>
+
+                <!-- Правая колонка: 7 полей с разной шириной -->
+            <div class="column right-column">
+                <div class="form-group full-width">
+                    <label for="right1">Гражданство</label>
+                    <input type="text" id="right1" name="right1">
+                </div>
+                <div class="form-group longer-width">
+                    <label for="right2">Серия и номер паспорта</label>
+                    <input type="text" id="right2" name="right2">
+                </div>
+                <div class="form-group full-width-longer">
+                    <label for="right3">Кем выдан</label>
+                    <input type="text" id="right3" name="right3">
+                </div>
+                <div class="form-group full-width">
+                    <label for="right4">Когда выдан</label>
+                    <input type="text" id="right4" name="right4">
+                </div>
+                <div class="form-group full-width-longer">
+                    <label for="right5">Адрес регистрации</label>
+                    <input type="text" id="right5" name="right5">
+                </div>
+                <div class="form-group full-width">
+                    <label for="right6">Дата регистрации</label>
+                    <input type="text" id="right6" name="right6">
+                </div>
+                <div class="form-group full-width-longer">
+                    <label for="right7">Комментарий</label>
+                    <input type="text" id="right7" name="right7">
+                </div>
+            </div>
+
+                <!-- Чекбокс -->
+            <div class="checkbox-group">
+                <input type="checkbox" id="surname" name="surname">
+                <label for="surname">нет отчества</label>
+            </div>
+        
+                <!-- Группа для подписи + выпадающий список -->
+            <div class="select-group">
+                <label for="right8" class="select-label">Тип сделки</label>
+                <select id="right8" name="right8">
+                    <option value=""></option>
+                    <option value="продажа">Розница</option>
+                    <option value="покупка">Кредит</option>
+                    <option value="обмен">Trade-in</option>
+                </select>
+            </div>
+            <div class="checkbox-group-deal">
+                <input type="checkbox" id="deal" name="deal">
+                <label for="deal">сделка</label>
+            </div>
+
+                <!-- Кнопки -->
+            <div class="button-group">
+                <button type="submit" class="btn save">Сохранить</button>
+            </div>
+            <div class="right-buttons">
+                <button class="btn cancel">Отменить</button>
+                <button class="btn delete">Удалить</button>
+            </div>
+        </form>
+        <!-- Контейнер для нижней линии и списка -->
+        <div class="line-select-container">
+        <!-- Контейнер для выпадающего списка (под линией) -->
+        <div class="select-wrapper">
+            <div class="custom-select">
+                <select>
+                    <option value="">Менеджер Менеджер Менеджер</option>
+                    <option value="1">Иванов Иван Иванович</option>
+                    <option value="2">Петров Петр Петрович</option>
+                </select>
+            </div>
+        </div>
+        <hr class="bottom-line">
+        <div class="date" id="currentDate"></div>
+        <div class="time" id="currentTime"></div>
+        <script>
+            const openBtn = document.getElementById('openBtn');
+            const myForm = document.getElementById('myForm');
+
+            openBtn.addEventListener('click', function() {
+            myForm.style.display = 'flex';
+            });
+        </script>
+        <script>
+            function updateDateTime() {
+                const now = new Date();
+    
+                // Форматируем дату: ДД.ММ.ГГГГ
+                const date = now.toLocaleDateString('ru-RU');
+                document.getElementById('currentDate').textContent = date;
+    
+                // Форматируем время: ЧЧ:ММ
+                const time = now.toLocaleTimeString('ru-RU', { 
+                    hour: '2-digit', 
+                    minute: '2-digit' 
+                });
+            document.getElementById('currentTime').textContent = time;
+            }
+
+                // Обновляем сразу при загрузке
+            updateDateTime();
+
+                // Обновляем каждую секунду
+            setInterval(updateDateTime, 1000);
+        </script>
+        <!-- <script>
+            setTimeout(() => {
+            // Вариант 2: автоматически
+            window.location.href = window.location.href.split('?')[0] + '?refresh=' + Date.now();
+            }, 2000);
+        </script> -->
+  </body>
+</html>  
+        
+
+   
+        
+         
+
+        
+      
+
+
+          
+        

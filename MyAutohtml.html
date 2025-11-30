@@ -17,7 +17,7 @@
                     <hr class="red-line">
                 <div class="button-container">
                     <button id="openBtn" class="btn">Клиенты</button>
-                    <button id="openBtn" class="btn">Склад</button>
+                    <button id="openTableBtn" class="btn">Склад</button>
                 </div>
             </div>
         </div>
@@ -112,6 +112,33 @@
                 <button class="btn delete">Удалить</button>
             </div>
         </form>
+        <div id="myTable" class="table-form-container">
+        <div class="table-container">
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Марка/модель</th>
+                            <th>Vin номер</th>
+                            <th>Цвет</th>
+                            <th>Комплектация</th>
+                            <th>Цена</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <!-- Строки будут сгенерированы через JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Панель кнопок -->
+        <div class="button-panel">
+            <button id="addButton">Добавить</button>
+            <button id="deleteButton">Удалить</button>
+        </div>
+    </div>
+
         <!-- Контейнер для нижней линии и списка -->
         <div class="line-select-container">
         <!-- Контейнер для выпадающего списка (под линией) -->
@@ -129,10 +156,24 @@
         <div class="time" id="currentTime"></div>
         <script>
             const openBtn = document.getElementById('openBtn');
+            const openTableBtn = document.getElementById('openTableBtn');
             const myForm = document.getElementById('myForm');
+            const myTable = document.getElementById('myTable');
+
+            // Изначально скрываем оба элемента
+            myForm.style.display = 'none';
+            myTable.style.display = 'none';
 
             openBtn.addEventListener('click', function() {
-            myForm.style.display = 'flex';
+                // Показываем форму, скрываем таблицу
+                myForm.style.display = 'flex';
+                myTable.style.display = 'none';
+            });
+
+            openTableBtn.addEventListener('click', function() {
+                // Показываем таблицу, скрываем форму
+                myTable.style.display = 'block';
+                myForm.style.display = 'none';
             });
         </script>
         <script>
@@ -157,6 +198,48 @@
                 // Обновляем каждую секунду
             setInterval(updateDateTime, 1000);
         </script>
+        <script>
+        function generateTableRows() {
+            const tbody = document.getElementById('tableBody');
+            tbody.innerHTML = '';
+            
+            for (let i = 1; i <= 70; i++) {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>
+                        <select id="model${i}">
+                            <option value=""></option>
+                            <option value="Dongfeng Mage">Dongfeng Mage</option>
+                            <option value="Dongfeng Huge">Dongfeng Huge</option>
+                        </select>
+                    </td>
+                    <td><input type="text" id="vin${i}" placeholder="Введите VIN"></td>
+                    <td><input type="text" id="color${i}" placeholder="Введите цвет"></td>
+                    <td>
+                        <select id="package${i}">
+                            <option value=""></option>
+                            <option value="Базовая">Modern</option>
+                            <option value="Базовая">Emotion</option>
+                            <option value="Премиум">Progressive</option>
+                            <option value="Премиум">Executive</option>
+                        </select>
+                    </td>
+                    <td><input type="text" id="price${i}" placeholder="Введите цену"></td>
+                `;
+                tbody.appendChild(row);
+            }
+        }
+
+        document.getElementById('addButton').addEventListener('click', function() {
+            alert('Функция "Добавить" будет реализована позже');
+        });
+
+        document.getElementById('deleteButton').addEventListener('click', function() {
+            alert('Функция "Удалить" будет реализована позже');
+        });
+
+        document.addEventListener('DOMContentLoaded', generateTableRows);
+    </script>
         <!-- <script>
             setTimeout(() => {
             // Вариант 2: автоматически

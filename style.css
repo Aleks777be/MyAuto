@@ -154,6 +154,7 @@ body {
     height: 0.8cm;
     padding: 0 10px;
     border: 0.3px solid #aca1a1;
+    background-color: #ffffff; /* или любой другой цвет */
     border-radius: 4px;
     font-size: 13px;
     width: 130%;
@@ -206,7 +207,7 @@ body {
     margin: 0;
 }
 
-select {
+.form-two-columns select {
     padding: 6px 12px;
     border: 1px solid #aca1a1;
     border-radius: 4px;
@@ -273,6 +274,162 @@ select {
 .btn:hover {
     opacity: 0.8;
 }
+
+        /* Таблица */
+        
+        .table-form-container {
+            width: 80%;
+            height: calc(452px + 1.2cm); /* 18 строк + панель кнопок */
+            border: 1px solid #000; /* Граница всей формы */
+            border-radius: 5px;
+            margin-left: 7.7cm;
+            margin-top: 10px;
+            display: none;
+        }
+        
+        .table-container {
+            height: 440px; /* Высота для 18 строк */
+            overflow: hidden;
+            border: none; /* Убираем границу у контейнера таблицы */
+            border-radius: 5px 5px 0px 0px;
+        } 
+        
+        .table-scroll {
+            height: 100%;
+            overflow-y: scroll;
+            scrollbar-width: thin;
+            scrollbar-color: #666 #f0f0f0;
+        }
+        
+        /* Кастомный скролл для Webkit браузеров */
+        .table-scroll::-webkit-scrollbar {
+            width: 12px;
+        }
+        
+        .table-scroll::-webkit-scrollbar-track {
+            background: #f0f0f0;
+            border-left: 1px solid #000; /* Граница скролла совпадает с формой */
+        }
+        
+        .table-scroll::-webkit-scrollbar-thumb {
+            background: #666;
+            border-radius: 5px;
+            border: none;
+        }
+        
+        .table-scroll::-webkit-scrollbar-button:single-button {
+            background-color: #f0f0f0;
+            border-left: 1px solid #000;
+            display: block;
+            height: 16px;
+            width: 12px;
+        }
+        
+        .table-scroll::-webkit-scrollbar-button:single-button:vertical:decrement {
+            border-bottom: 1px solid #000;
+        }
+        
+        .table-scroll::-webkit-scrollbar-button:single-button:vertical:increment {
+            border-top: 1px solid #000;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+            border: none; /* Убираем границу у таблицы */
+        }
+        
+        th, td {
+            border: 1px solid #000;
+            padding: 0;
+            text-align: left;
+            height: 17px;
+            background-color: #d9d9d9;
+        }
+        
+        /* Внешние границы таблицы совпадают с формой */
+        th:first-child, td:first-child {
+            border-left: none; /* Убираем левую границу */
+        }
+        
+        th:last-child, td:last-child {
+            border-right: none; /* Убираем правую границу */
+        }
+        
+        tr:first-child th {
+            border-top: none; /* Убираем верхнюю границу у заголовков */
+        }
+        
+        th {
+            background-color: #d9bbbb;
+            position: sticky;
+            top: 0;
+            font-weight: bold;
+            padding: 8px 4px;
+            font-size: 11px;
+        }
+        
+        #myTable select, input {
+            width: 100%;
+            height: 100%;
+            padding: 6px 4px;
+            border: none;
+            outline: none;
+            background: transparent;
+            box-sizing: border-box;
+            font-size: 11px;
+        }
+        
+        select:focus, input:focus {
+            background-color: #f8f8f8;
+        }
+        
+        /* Фиксируем ширину столбцов */
+        th:nth-child(1), td:nth-child(1) { width: 20%; }
+        th:nth-child(2), td:nth-child(2) { width: 25%; }
+        th:nth-child(3), td:nth-child(3) { width: 15%; }
+        th:nth-child(4), td:nth-child(4) { width: 20%; }
+        th:nth-child(5), td:nth-child(5) { width: 20%; }
+        
+        /* Панель кнопок */
+        .button-panel {
+            width: 100%;
+            height: 1.5cm;
+            border-top: 1px solid #000; /* Верхняя граница панели */
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            gap: 15px;
+            background-color: #d1bbbb;
+            box-sizing: border-box;
+            border-radius: 0px 5px 5px;
+            justify-content: center;
+        }
+        
+        .button-panel button {
+            padding: 5px 40px;
+            border: 1px solid #000;
+            background-color: #94c9ac;
+            cursor: pointer;
+            font-size: 11px;
+            border-radius: 10px;
+        }
+
+        #deleteButton {
+            background-color: #9d9898;
+            color: white;
+            border: 1px solid #000000;
+            padding: 5px 25px;
+        }
+        
+        .button-panel button:hover {
+            background-color: #94c9ac;
+        }
+        
+        .button-panel button:active {
+            background-color: #e0e0e0;
+        }
 
 /* === ДАТА И ВРЕМЯ === */
 .date, .time {
@@ -366,3 +523,4 @@ select {
     .buttons-container button { width: 80px; height: 28px; font-size: 14px; }
     body { font-size: 17px; }
 }
+

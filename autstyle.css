@@ -1,0 +1,155 @@
+/* Общие настройки */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #e6e9eb 0%, #c8a2a0 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Контейнер формы */
+#Autoriz-form {
+  width: 100%;
+  max-width: 500px;
+  padding: 30px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.logo-container {
+  position: relative;
+  width: 100%;
+  height: 80px;
+  overflow: hidden;
+}
+
+.logo {
+  position: absolute;
+  right: -50px; /* Старт */
+  top: 40%;
+  transform: translateY(-50%);
+  width: 60px;
+  height: auto;
+  
+  /* Анимация: движение + 3 подпрыгивания */
+  animation: moveWithBounce 4s ease-out 1 forwards;
+}
+
+@keyframes moveWithBounce {
+  0% {
+    right: -90px;
+    transform: translateY(-50%) rotate(0deg);
+  }
+  
+  25% { /* Первое подпрыгивание */
+    transform: translateY(-15%) rotate(8deg);
+  }
+  
+  30% {
+    transform: translateY(-45%) rotate(-8deg);
+  }
+  
+  35% {
+    transform: translateY(-50%) rotate(0deg);
+  }
+  
+  55% { /* Второе подпрыгивание */
+    transform: translateY(-20%) rotate(8deg);
+  }
+  
+  60% {
+    transform: translateY(-45%) rotate(-8deg);
+  }
+  
+  65% {
+    transform: translateY(-50%) rotate(0deg);
+  }
+  
+  85% { /* Третье подпрыгивание */
+    transform: translateY(-45%) rotate(5deg);
+  }
+  
+  88.9% { /* Конец движения */
+    right: 185px;
+    transform: translateY(-50%) rotate(0deg);
+  }
+  
+  /* ДОБАВЬТЕ ЭТО: */
+  94% {
+    right: 185px;
+    transform: translateY(-50%) rotate(-180deg);
+  }
+  
+  100% {
+    right: 185px;
+    transform: translateY(-50%) rotate(-360deg);
+  }
+}
+
+/* И увеличьте время анимации */
+.logo {
+  animation: moveWithBounce 4.5s ease-out 1 forwards; /* Было 4s, стало 4.5s */
+}
+
+ 
+
+/* Заголовки и текст */
+#Autoriz-form h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 25px;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+/* Поля ввода */
+#login-id,
+#password {
+  width: 100%;
+  padding: 10px 16px;
+  margin: 10px 0;
+  border: 2px solid #e1e5ea;
+  border-radius: 12px;
+  font-size: 16px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  outline: none;
+}
+
+/* Фокус на полях */
+#login-id:focus,
+#password:focus {
+  border-color: #b8b8b8;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+}
+
+/* Кнопка */
+#submit-btn {
+  width: 50%;
+  padding: 10px;
+  margin-left: 110px;
+  margin-top: 12px;
+  background: linear-gradient(135deg, #c2c6d6 0%, #d88585 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  outline: none;
+}
+
+#submit-btn:focus {
+  background: linear-gradient(135deg, #c2c6d6 0%, #d885852c 100%); /* Тёмнее основного цвета */
+  outline: 2px solid #b8b8b8; /* Контур фокуса */
+  outline-offset: 2px; /* Отступ контура от края кнопки */
+}

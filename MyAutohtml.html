@@ -156,25 +156,29 @@
         <div class="time" id="currentTime"></div>
         <script>
             const openBtn = document.getElementById('openBtn');
-            const openTableBtn = document.getElementById('openTableBtn');
-            const myForm = document.getElementById('myForm');
-            const myTable = document.getElementById('myTable');
+const openTableBtn = document.getElementById('openTableBtn');
+const myForm = document.getElementById('myForm');
+const myTable = document.getElementById('myTable');
 
-            // Изначально скрываем оба элемента
-            myForm.style.display = 'none';
-            myTable.style.display = 'none';
+// Инициализация
+myForm.style.display = 'none';
+myTable.style.display = 'none';
 
-            openBtn.addEventListener('click', function() {
-                // Показываем форму, скрываем таблицу
-                myForm.style.display = 'flex';
-                myTable.style.display = 'none';
-            });
+// Одна функция для обоих случаев
+function toggleElements(showElement, hideElement, showDisplayType = 'flex') {
+    if (showElement.style.display === 'none') {
+        // Открываем первый элемент, закрываем второй
+        showElement.style.display = showDisplayType;
+        hideElement.style.display = 'none';
+    } else {
+        // Закрываем элемент, если он уже открыт
+        showElement.style.display = 'none';
+    }
+}
 
-            openTableBtn.addEventListener('click', function() {
-                // Показываем таблицу, скрываем форму
-                myTable.style.display = 'block';
-                myForm.style.display = 'none';
-            });
+// Назначаем
+openBtn.addEventListener('click', () => toggleElements(myForm, myTable, 'flex'));
+openTableBtn.addEventListener('click', () => toggleElements(myTable, myForm, 'block'));
         </script>
         <script>
             function updateDateTime() {

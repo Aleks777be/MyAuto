@@ -180,16 +180,14 @@ body {
 
 .checkbox-group-deal {
     position: absolute;
-    right: 80px;
-    top: calc(9px + 2 * (0.7cm + 3px + 2px));
+    right: 90px;
+    top: 55px; /* Простое значение для теста */
     display: flex;
     align-items: center;
     font-size: 9px;
     color: #212121;
-    bottom: 100%;
-    margin-right: 10px;
     gap: 5px;
-    transform: translateY(-3mm);
+    z-index: 1000; /* Важно! */
 }
 
 /* Выпадающие списки */

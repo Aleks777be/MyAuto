@@ -111,7 +111,7 @@ body {
 
 /* === ФОРМА (ВАШИ ОРИГИНАЛЬНЫЕ СТИЛИ) === */
 .form-two-columns {
-    max-width: 1200px;
+    max-width: 80%;
     margin-left: 7.7cm;
     margin-top: 10px;
     background-color: #d8dcdd;

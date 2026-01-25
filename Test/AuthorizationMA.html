@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>MyAuto</title>
+        <meta charset="utf-8">
+        <meta name="Приложение для управления продажами">
+        <link rel="stylesheet" href="autstyle.css">
+    </head>
+    <body>
+        <form id="Autoriz-form">
+            <div class="logo-container">
+                <img src="logo.jpg" alt="Лого MyAuto" class="logo"> 
+            </div>
+            <input type="text" id="login-id" name="login" placeholder="Логин" required>
+            <input type="password" id="password" name="password" placeholder="Пароль" required>
+            <button type="button" id="submit-btn">Войти</button>
+        </form>
+
+        <script>
+        document.getElementById('submit-btn').addEventListener('click', async () => {
+            const login = document.querySelector('input[name="login"]').value;
+            const password = document.querySelector('input[name="password"]').value;
+            
+            try {
+            const response = await fetch('http://localhost:3001/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'  // ← ДОБАВЬТЕ ЭТУ СТРОКУ
+                },
+                body: JSON.stringify({ login, password })
+            });
+            
+            // Получаем сначала текст
+            const responseText = await response.text();
+            console.log('Ответ сервера (текст):', responseText);
+            
+            // Парсим JSON
+            const data = JSON.parse(responseText);
+                
+                if (response.ok) {
+                    //const data = await response.json();
+                    console.log('Токен получен:', data.access_token);
+                    console.log('Данные пользователя:', data.manager);
+                    console.log('Весь ответ:', data);
+                    console.log('is_admin значение:', data.manager?.is_admin);
+                    
+                    // Сохраняем
+                    localStorage.setItem('token', data.access_token);
+                    localStorage.setItem('user', JSON.stringify(data.manager));  // Изменил на 'user'
+                    
+                    // ★★★ ПРОВЕРЯЕМ РОЛЬ И РЕДИРЕКТИМ ★★★
+                    const user = data.manager;
+                    
+                    if (user.is_admin) {
+                        // АДМИНИСТРАТОР → админ-панель
+                        console.log('Администратор, перехожу в админ-панель');
+                        window.location.href = 'admin-managers.html';
+                    } else {
+                        // МЕНЕДЖЕР → главная страница
+                        console.log('Менеджер, перехожу на склад');
+                        window.location.href = 'testwt.html';
+                    }
+                    
+                } else {
+                    const errorData = await response.json();
+                    alert('Ошибка входа: ' + (errorData.message || 'Неверные данные'));
+                }
+            } catch (error) {
+                console.error('Ошибка:', error);
+                alert('Ошибка соединения с сервером');
+            }
+        });
+        </script>
+    </body>
+</html>

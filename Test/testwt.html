@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>MyAuto</title>
+        <meta charset="utf-8">
+        <meta name="description" content="Приложение для управления продажами">
+        <link rel="shortcut icon" href="logo.jpg"/>
+        <link rel="stylesheet" href="testwt.css"/>
+    </head>
+    <body class="form-hidden">
+        <div>
+            </div>
+                <div class="header-container">
+                    <img src="logo.jpg" alt="лого компании" class="logo">
+                    <h1 class="company-title">byAuto</h1>
+                <div class="line-container">
+                    <hr class="red-line">
+                <div class="button-container">
+                    <button id="openWorkTableBtn" class="btn active">Рабочий стол</button>
+                    <button id="openTableBtn" class="btn">Склад</button>
+                    <button id="openBtn" class="btn">Клиенты</button>
+                </div>
+            </div>
+        </div>
+            <form id="myForm" class="form-two-columns">
+            <!-- Левая колонка: 6 одинаковых полей -->
+            <div class="column left-column">
+                <div class="form-group">
+                    <label for="left1">Фамилия</label>
+                    <input type="text" id="left1" name="left1">
+                </div>
+                <div class="form-group">
+                    <label for="left2">Имя</label>
+                    <input type="text" id="left2" name="left2">
+                </div>
+                <div class="form-group">
+                    <label for="left3">Отчество</label>
+                    <input type="text" id="left3" name="left3">
+                </div>
+                <div class="form-group">
+                    <label for="left4">Дата рождения</label>
+                    <input type="text" id="left4" name="left4">
+                </div>
+                <div class="form-group">
+                    <label for="left5">Телефон</label>
+                    <input type="text" id="left5" name="left5">
+                </div>
+                <div class="form-group">
+                    <label for="left6">Email</label>
+                    <input type="text" id="left6" name="left6">
+                </div>
+            </div>
+
+                <!-- Правая колонка: 7 полей с разной шириной -->
+            <div class="column right-column">
+                <div class="form-group full-width">
+                    <label for="right1">Гражданство</label>
+                    <input type="text" id="right1" name="right1">
+                </div>
+                <div class="form-group longer-width">
+                    <label for="right2">Серия и номер паспорта</label>
+                    <input type="text" id="right2" name="right2">
+                </div>
+                <div class="form-group full-width-longer">
+                    <label for="right3">Кем выдан</label>
+                    <input type="text" id="right3" name="right3">
+                </div>
+                <div class="form-group full-width">
+                    <label for="right4">Когда выдан</label>
+                    <input type="text" id="right4" name="right4">
+                </div>
+                <div class="form-group full-width-longer">
+                    <label for="right5">Адрес регистрации</label>
+                    <input type="text" id="right5" name="right5">
+                </div>
+                <div class="form-group full-width">
+                    <label for="right6">Дата регистрации</label>
+                    <input type="text" id="right6" name="right6">
+                </div>
+                <div class="form-group full-width-longer">
+                    <label for="right7">Комментарий</label>
+                    <input type="text" id="right7" name="right7">
+                </div>
+            </div>
+
+                <!-- Чекбокс -->
+            <div class="checkbox-group">
+                <input type="checkbox" id="surname" name="surname">
+                <label for="surname">нет отчества</label>
+            </div>
+        
+                <!-- Группа для подписи + выпадающий список -->
+            <div class="select-group">
+                <label for="right8" class="select-label">Тип сделки</label>
+                <select id="right8" name="right8">
+                    <option value=""></option>
+                    <option value="продажа">Розница</option>
+                    <option value="покупка">Кредит</option>
+                    <option value="обмен">Trade-in</option>
+                </select>
+            </div>
+            <div class="checkbox-group-deal">
+                <input type="checkbox" id="deal" name="deal">
+                <label for="deal">сделка</label>
+            </div>
+
+                <!-- Кнопки -->
+            <div class="button-form-group">
+                <button type="button" class="btn-form save" id="saveBtn">Сохранить</button>
+            </div>
+            <div class="right-buttons">
+                <button type="button" class="btn-form cancel" id="cancelBtn">Отменить</button>
+                <button type="button" class="btn-form delete" id="deleteBtn">Удалить</button>
+            </div>
+        </form>
+
+        <script src="clients.js"></script>
+
+        <div id="myTable" class="table-form-container">
+        <div class="table-container">
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Марка/модель</th>
+                            <th>Vin номер</th>
+                            <th>Цвет</th>
+                            <th>Комплектация</th>
+                            <th>Цена</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <!-- Строки будут сгенерированы через JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        
+        <!-- Панель кнопок -->
+        <div class="button-panel">
+            <button id="addButton">Добавить</button>
+            <button id="deleteButton">Удалить</button>
+        </div>
+    </div>
+
+    <!--New-->
+
+        <div class="work-table-container">
+        <div class="header">
+            <h1>Клиенты на сегодня</h1>
+            <div class="current-date" id="workTableDate"></div>
+        </div>
+        
+        <!--<div class="controls">
+            <button class="btn btn-save" id="saveBtn" disabled>Сохранить</button>
+            <button class="btn btn-cancel" id="cancelBtn">Отменить</button>
+            <button class="btn btn-refuse" id="refuseBtn">Отказ</button>
+            <button class="btn btn-history" id="historyBtn">История</button>
+        </div> -->
+        
+        <div class="table-wrapper">
+            <div class="table-header">
+                <div class="column">ФИО клиента</div>
+                <div class="column">Дата и время контакта</div>
+                <div class="column">Комментарий после общения</div>
+            </div>
+            
+            <form class="contact-form" id="contactForm">
+                <!-- 35 строк будут созданы скриптом -->
+            </form>
+        </div>
+    </div>
+    
+    <!-- Модальное окно календаря -->
+    <div class="calendar-modal" id="calendarModal">
+        <div class="calendar-content">
+            <div class="calendar-header">
+                <h3>Выберите дату и время следующего контакта</h3>
+                <button class="close-btn" id="closeCalendar">×</button>
+            </div>
+            <div id="calendar"></div>
+            <div class="time-selector">
+                <label>Время:</label>
+                <select id="timeHour">
+                    <!-- Часы будут заполнены скриптом -->
+                </select>
+                <select id="timeMinute">
+                    <option value="00">00</option>
+                    <option value="15">15</option>
+                    <option value="30">30</option>
+                    <option value="45">45</option>
+                </select>
+            </div>
+            <button class="btn btn-save" id="setDateTime">Установить дату</button>
+        </div>
+    </div>
+    
+    <!-- Модальное окно истории -->
+    <div class="history-modal" id="historyModal">
+        <div class="history-content">
+            <div class="calendar-header">
+                <h3>История контактов</h3>
+                <button class="close-btn" id="closeHistory">×</button>
+            </div>
+            <div id="historyList">
+                <!-- История будет заполнена динамически -->
+            </div>
+        </div>
+    </div>
+
+    <!--Fin-->
+
+        <!-- Контейнер для нижней линии и списка -->
+        <div class="line-select-container">
+        <!-- Контейнер для выпадающего списка (под линией) -->
+        <div class="select-wrapper">
+            <div class="custom-select">
+                <select>
+                    <option value="">Менеджер Менеджер Менеджер</option>
+                    <option value="1">Иванов Иван Иванович</option>
+                    <option value="2">Петров Петр Петрович</option>
+                </select>
+            </div>
+        </div>
+        <hr class="bottom-line">
+        <div class="date" id="currentDate"></div>
+        <div class="time" id="currentTime"></div>
+
+        <!--New-->
+
+        <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    // Установка текущей даты
+                    const now = new Date();
+                    const today = now.toISOString().split('T')[0];
+                    const options = { 
+                        day: '2-digit', 
+                        month: '2-digit', 
+                        year: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    };
+                    document.getElementById('workTableDate').textContent = 
+                        now.toLocaleDateString('ru-RU', options);
+                    
+                    const contactForm = document.getElementById('contactForm');
+                    let selectedRowIndex = null;
+
+                    // Загружаем клиентов
+                    loadTodayClients();
+                    
+                    // Инициализация часов в календаре
+                    initTimeSelector();
+                    
+                    // Инициализация календаря
+                    initCalendar();
+                    
+                    // Обработчики событий
+                    setupEventListeners();
+
+                    // ============ ОСНОВНЫЕ ФУНКЦИИ ============
+                    
+                    async function loadTodayClients() {
+                        try {
+                            const token = localStorage.getItem('token');
+                            if (!token) {
+                                console.error('Нет токена');
+                                return;
+                            }
+                            
+                            // Получаем клиентов из БД
+                            const response = await fetch('http://localhost:3001/customers', {
+                                headers: { 'Authorization': `Bearer ${token}` }
+                            });
+                            
+                            if (!response.ok) throw new Error('Ошибка загрузки клиентов');
+                            
+                            const customers = await response.json();
+                            
+                            // Фильтруем клиентов на сегодня
+                            const todayClients = customers.filter(customer => {
+                                const today = new Date().toISOString().split('T')[0];
+                                
+                                if (customer.next_contact_date) {
+                                    const nextDate = new Date(customer.next_contact_date).toISOString().split('T')[0];
+                                    return nextDate === today;
+                                }
+                                
+                                if (customer.registration_date) {
+                                    const regDate = new Date(customer.registration_date).toISOString().split('T')[0];
+                                    return regDate === today;
+                                }
+                                
+                                return true;
+                            });
+                            
+                            if (todayClients.length === 0) {
+                                contactForm.innerHTML = '<div class="no-clients">Нет клиентов на сегодня</div>';
+                                return;
+                            }
+                            
+                            // Очищаем форму
+                            contactForm.innerHTML = '';
+                            
+                            // Создаем строки для каждого клиента
+                            todayClients.forEach((customer, index) => {
+                                const row = document.createElement('div');
+                                row.className = 'contact-row';
+                                row.dataset.index = index + 1;
+                                row.dataset.id = customer.id;
+                                row.dataset.clientId = customer.id;
+                                
+                                // Формируем ФИО
+                                const fullName = customer.name || 
+                                    `${customer.surname || ''} ${customer.first_name || ''} ${customer.middle_name || ''}`.trim();
+                                
+                                // Время контакта
+                                let contactTime;
+                                if (customer.next_contact_date) {
+                                    contactTime = new Date(customer.next_contact_date);
+                                } else if (customer.registration_date) {
+                                    contactTime = new Date(customer.registration_date);
+                                } else {
+                                    contactTime = new Date(now.getTime() + (index * 30 * 60000));
+                                }
+                                
+                                row.innerHTML = `
+                                    <div class="column fio-column">
+                                        <input type="text" 
+                                            class="fio-input" 
+                                            value="${fullName || 'Без имени'}"
+                                            readonly>
+                                    </div>
+                                    <div class="column datetime-column">
+                                        <span class="datetime-display">
+                                            ${contactTime.toLocaleTimeString('ru-RU', {hour: '2-digit', minute:'2-digit'})}
+                                            ${customer.next_contact_date ? ' (перенесено)' : ''}
+                                        </span>
+                                        <a href="#" class="next-contact-link" data-row="${index + 1}">Следующий контакт</a>
+                                    </div>
+                                    <div class="column comment-buttons-column">
+                                        <div class="comment-with-buttons">
+                                            <textarea class="comment-input" 
+                                                    placeholder="Введите комментарий после общения..."
+                                                    rows="2">${customer.comment || ''}</textarea>
+                                            <div class="buttons-column">
+                                                <button class="btn btn-save" data-action="save">Сохранить</button>
+                                                <button class="btn btn-cancel" data-action="cancel">Отменить</button>
+                                                <button class="btn btn-refuse" data-action="refuse">Отказ</button>
+                                                <button class="btn btn-history" data-action="history">История</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                `;
+                                
+                                contactForm.appendChild(row);
+                            });
+                            
+                        } catch (error) {
+                            console.error('Ошибка загрузки клиентов:', error);
+                            contactForm.innerHTML = '<div class="no-clients">Ошибка загрузки клиентов</div>';
+                        }
+                    }
+                    
+                    function initTimeSelector() {
+                        const hourSelect = document.getElementById('timeHour');
+                        hourSelect.innerHTML = '';
+                        for (let i = 9; i <= 18; i++) {
+                            const option = document.createElement('option');
+                            option.value = i.toString().padStart(2, '0');
+                            option.textContent = i.toString().padStart(2, '0');
+                            hourSelect.appendChild(option);
+                        }
+                        const nextHour = (new Date().getHours() + 1) % 24;
+                        hourSelect.value = nextHour.toString().padStart(2, '0');
+                    }
+                    
+                    function initCalendar() {
+                        const calendar = document.getElementById('calendar');
+                        const today = new Date();
+                        
+                        const days = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
+                        let html = '<div class="calendar-grid">';
+                        
+                        days.forEach(day => {
+                            html += `<div class="calendar-day" style="font-weight:bold;">${day}</div>`;
+                        });
+                        
+                        const daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
+                        const firstDay = new Date(today.getFullYear(), today.getMonth(), 1).getDay();
+                        const adjustedFirstDay = firstDay === 0 ? 6 : firstDay - 1;
+                        
+                        for (let i = 0; i < adjustedFirstDay; i++) {
+                            html += '<div class="calendar-day" style="visibility:hidden;"></div>';
+                        }
+                        
+                        for (let i = 1; i <= daysInMonth; i++) {
+                            const date = new Date(today.getFullYear(), today.getMonth(), i);
+                            const isToday = i === today.getDate();
+                            const isPast = date < today && !isToday;
+                            
+                            html += `<div class="calendar-day" 
+                                        data-date="${date.toISOString().split('T')[0]}"
+                                        style="${isToday ? 'background:#007bff;color:white;' : ''}
+                                                ${isPast ? 'opacity:0.5;cursor:not-allowed;' : ''}">
+                                    ${i}
+                                    </div>`;
+                        }
+                        
+                        html += '</div>';
+                        calendar.innerHTML = html;
+                        
+                        // Обработчики для дней календаря
+                        document.querySelectorAll('.calendar-day:not([style*="visibility:hidden"])').forEach(day => {
+                            if (!day.style.cssText.includes('cursor: not-allowed')) {
+                                day.addEventListener('click', function() {
+                                    selectDate(this);
+                                });
+                            }
+                        });
+                    }
+                    
+                    function setupEventListeners() {
+                        // Клик по "Следующий контакт"
+                        document.addEventListener('click', function(e) {
+                            if (e.target.classList.contains('next-contact-link')) {
+                                e.preventDefault();
+                                selectedRowIndex = e.target.dataset.row;
+                                document.getElementById('calendarModal').style.display = 'flex';
+                            }
+                        });
+                        
+                        // Обработчики для кнопок в строках
+                        document.addEventListener('click', function(e) {
+                            const row = e.target.closest('.contact-row');
+                            if (!row) return;
+                            
+                            const clientId = row.dataset.clientId;
+                            const clientFio = row.querySelector('.fio-input').value;
+                            
+                            if (e.target.classList.contains('btn-save')) {
+                                const comment = row.querySelector('.comment-input').value;
+                                
+                                if (!comment.trim()) {
+                                    alert('Введите комментарий');
+                                    return;
+                                }
+                                
+                                saveClientContact(clientId, clientFio, comment);
+                                row.remove();
+                                checkAllRowsHidden();
+                            }
+                            
+                            if (e.target.classList.contains('btn-cancel')) {
+                                row.querySelector('.comment-input').value = '';
+                            }
+                            
+                            if (e.target.classList.contains('btn-refuse')) {
+                                if (confirm(`Пометить клиента "${clientFio}" как отказ?`)) {
+                                    const comment = row.querySelector('.comment-input').value;
+                                    const refusalComment = comment ? comment + ' [ОТКАЗ]' : '[ОТКАЗ]';
+                                    
+                                    row.querySelector('.comment-input').value = refusalComment;
+                                    saveClientContact(clientId, clientFio, 'Отказ от сотрудничества', true);
+                                    row.remove();
+                                    checkAllRowsHidden();
+                                }
+                            }
+                            
+                            if (e.target.classList.contains('btn-history')) {
+                                showClientHistory(clientId);
+                            }
+                        });
+                        
+                        document.getElementById('closeCalendar').addEventListener('click', function() {
+                            document.getElementById('calendarModal').style.display = 'none';
+                        });
+                        
+                        document.getElementById('setDateTime').addEventListener('click', function() {
+                            const selectedDate = document.querySelector('.calendar-day.selected');
+                            if (!selectedDate) {
+                                alert('Выберите дату');
+                                return;
+                            }
+                            
+                            const hour = document.getElementById('timeHour').value;
+                            const minute = document.getElementById('timeMinute').value;
+                            const dateStr = selectedDate.dataset.date;
+                            
+                            const nextContactDate = new Date(dateStr);
+                            nextContactDate.setHours(hour, minute);
+                            
+                            if (selectedRowIndex) {
+                                const row = document.querySelector(`.contact-row[data-index="${selectedRowIndex}"]`);
+                                const clientId = row.dataset.clientId;
+                                
+                                saveNextContactDate(clientId, nextContactDate.toISOString());
+                                
+                                const link = row.querySelector('.next-contact-link');
+                                const display = link.previousElementSibling;
+                                display.textContent = nextContactDate.toLocaleString('ru-RU', {
+                                    day: '2-digit',
+                                    month: '2-digit',
+                                    year: 'numeric',
+                                    hour: '2-digit',
+                                    minute: '2-digit'
+                                });
+                                
+                                alert('Дата следующего контакта сохранена');
+                            }
+                            
+                            document.getElementById('calendarModal').style.display = 'none';
+                        });
+                        
+                        document.getElementById('closeHistory').addEventListener('click', function() {
+                            document.getElementById('historyModal').style.display = 'none';
+                        });
+                        
+                        window.addEventListener('click', function(e) {
+                            if (e.target.classList.contains('calendar-modal')) {
+                                document.getElementById('calendarModal').style.display = 'none';
+                            }
+                            if (e.target.classList.contains('history-modal')) {
+                                document.getElementById('historyModal').style.display = 'none';
+                            }
+                        });
+                    }
+                    
+                    function selectDate(element) {
+                        document.querySelectorAll('.calendar-day').forEach(day => {
+                            day.classList.remove('selected');
+                        });
+                        element.classList.add('selected');
+                    }
+                    
+                    async function saveClientContact(clientId, clientFio, comment, isRefusal = false) {
+                        try {
+                            const token = localStorage.getItem('token');
+                            
+                            const response = await fetch(`http://localhost:3001/customers/${clientId}/contact`, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Authorization': `Bearer ${token}`
+                                },
+                                body: JSON.stringify({
+                                    comment: comment,
+                                    isRefusal: isRefusal,
+                                    contactDate: new Date().toISOString()
+                                })
+                            });
+                            
+                            if (!response.ok) throw new Error('Ошибка сохранения контакта');
+                            
+                            console.log('Контакт сохранен в БД');
+                            
+                            if (!isRefusal) {
+                                const nextContactDate = localStorage.getItem(`next_contact_${clientId}`);
+                                if (nextContactDate) {
+                                    await fetch(`http://localhost:3001/customers/${clientId}/next-contact`, {
+                                        method: 'PATCH',
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                            'Authorization': `Bearer ${token}`
+                                        },
+                                        body: JSON.stringify({ nextContactDate: nextContactDate })
+                                    });
+                                }
+                            }
+                            
+                        } catch (error) {
+                            console.error('Ошибка:', error);
+                            const contactData = {
+                                clientId: clientId,
+                                clientFio: clientFio,
+                                date: new Date().toISOString(),
+                                comment: comment,
+                                isRefusal: isRefusal
+                            };
+                            
+                            let contacts = JSON.parse(localStorage.getItem('client_contacts') || '[]');
+                            contacts.push(contactData);
+                            localStorage.setItem('client_contacts', JSON.stringify(contacts));
+                        }
+                    }
+                    
+                    function saveNextContactDate(clientId, nextContactDate) {
+                        localStorage.setItem(`next_contact_${clientId}`, nextContactDate);
+                    }
+                    
+                    function showClientHistory(clientId) {
+                        const allContacts = JSON.parse(localStorage.getItem('client_contacts') || '[]');
+                        const clientContacts = allContacts.filter(contact => contact.clientId === clientId);
+                        
+                        const historyList = document.getElementById('historyList');
+                        
+                        if (clientContacts.length === 0) {
+                            historyList.innerHTML = '<div class="history-item"><em>История контактов пуста</em></div>';
+                        } else {
+                            let html = '<h4>История контактов:</h4>';
+                            clientContacts.forEach(contact => {
+                                const date = new Date(contact.date);
+                                html += `
+                                    <div class="history-item">
+                                        <div class="history-date">
+                                            ${date.toLocaleString('ru-RU')}
+                                            ${contact.isRefusal ? '<span style="color:red;"> [ОТКАЗ]</span>' : ''}
+                                        </div>
+                                        <div class="history-comment">
+                                            <strong>${contact.clientFio}</strong><br>
+                                            ${contact.comment}
+                                        </div>
+                                    </div>
+                                `;
+                            });
+                            historyList.innerHTML = html;
+                        }
+                        
+                        document.getElementById('historyModal').style.display = 'flex';
+                    }
+                    
+                    function checkAllRowsHidden() {
+                        const visibleRows = document.querySelectorAll('.contact-row:not(.hidden)');
+                        if (visibleRows.length === 0) {
+                            setTimeout(() => {
+                                alert('Все клиенты на сегодня обработаны!');
+                            }, 300);
+                        }
+                    }
+                });
+        </script>
+
+        <!--Fin-->
+
+
+        <script>
+            const openBtn = document.getElementById('openBtn');
+            const openTableBtn = document.getElementById('openTableBtn');
+            const openWorkTableBtn = document.getElementById('openWorkTableBtn');
+            const myForm = document.getElementById('myForm');
+            const myTable = document.getElementById('myTable');
+            
+            // ИСПРАВЛЕНО: используем ID или более специфичный селектор
+            const workTable = document.getElementById('workTable') || 
+                            document.querySelector('.work-table-container:not(.calendar-modal *)');
+
+            console.log('workTable найден:', !!workTable); // Должно быть true
+
+            // Инициализация - рабочий стол виден
+            if (workTable) {
+                workTable.style.display = 'block';
+            }
+            myForm.style.display = 'none';
+            myTable.style.display = 'none';
+
+            function showElement(element) {
+                // Скрываем всё
+                myForm.style.display = 'none';
+                myTable.style.display = 'none';
+                if (workTable) workTable.style.display = 'none';
+                
+                // Показываем выбранный
+                if (element === myForm) {
+                    element.style.display = 'flex';
+                } else if (element) {
+                    element.style.display = 'block';
+                }
+                
+                // Обновляем кнопки
+                [openBtn, openTableBtn, openWorkTableBtn].forEach(btn => {
+                    if (btn) btn.classList.remove('active');
+                });
+                
+                if (element === myForm && openBtn) openBtn.classList.add('active');
+                else if (element === myTable && openTableBtn) openTableBtn.classList.add('active');
+                else if (element === workTable && openWorkTableBtn) openWorkTableBtn.classList.add('active');
+            }
+
+            if (openBtn) openBtn.addEventListener('click', () => showElement(myForm));
+            if (openTableBtn) openTableBtn.addEventListener('click', () => showElement(myTable));
+            if (openWorkTableBtn && workTable) {
+                openWorkTableBtn.addEventListener('click', () => showElement(workTable));
+            }
+        </script>
+
+        <script>
+            function updateDateTime() {
+                const now = new Date();
+    
+                // Форматируем дату: ДД.ММ.ГГГГ
+                const date = now.toLocaleDateString('ru-RU');
+                document.getElementById('currentDate').textContent = date;
+    
+                // Форматируем время: ЧЧ:ММ
+                const time = now.toLocaleTimeString('ru-RU', { 
+                    hour: '2-digit', 
+                    minute: '2-digit' 
+                });
+            document.getElementById('currentTime').textContent = time;
+            }
+
+                // Обновляем сразу при загрузке
+            updateDateTime();
+
+                // Обновляем каждую секунду
+            setInterval(updateDateTime, 1000);
+        </script>
+
+        
+       <script>  //скрипт таблицы склад
+
+            let selectedCarIds = [];
+
+                // 1. Загрузка авто из БД
+                async function loadCars() {
+                    try {
+                        const response = await fetch('http://localhost:3001/cars');
+                        const cars = await response.json();
+                        
+                        const tbody = document.getElementById('tableBody');
+                        tbody.innerHTML = '';
+                        
+                        // Показываем существующие авто
+                        cars.forEach(car => {
+                            const row = document.createElement('tr');
+                            row.dataset.id = car.id;
+                            
+                            // Объединяем brand и model
+                            const displayName = `${car.brand || ''} ${car.model || ''}`.trim();
+                            
+                            // Берем комплектацию из поля status (так хранится в БД)
+                            const packageName = car.status || '';
+                            
+                            row.innerHTML = `
+                                <td>${displayName}</td>
+                                <td>${car.vin || ''}</td>
+                                <td>${car.color || ''}</td>
+                                <td>${packageName}</td>  <!-- Здесь status из БД -->
+                                <td>${car.priceCents ? (car.priceCents).toLocaleString() : ''}</td>
+                            `;
+                            tbody.appendChild(row);
+                        });
+                        
+                        // Добавляем строку для нового авто
+                        addEmptyRow();
+                        
+                    } catch (error) {
+                        console.error('Ошибка загрузки:', error);
+                        generateFallbackTable();
+                    }
+                }
+
+                // 2. Пустая строка для добавления - С КОМПЛЕКТАЦИЕЙ
+                function addEmptyRow() {
+                    const tbody = document.getElementById('tableBody');
+                    const row = document.createElement('tr');
+                    row.className = 'new-car-row';
+                    row.innerHTML = `
+                        <td>
+                            <select class="new-brand" required>
+                                <option value="">Выберите модель</option>
+                                <option value="Dongfeng Mage">Dongfeng Mage</option>
+                                <option value="Dongfeng Huge">Dongfeng Huge</option>
+                            </select>
+                        </td>
+                        <td><input type="text" class="new-vin" placeholder="VIN" required></td>
+                        <td><input type="text" class="new-color" placeholder="Цвет" required></td>
+                        <td>
+                            <select class="new-package">
+                                <option value="Modern">Modern</option>
+                                <option value="Emotion">Emotion</option>
+                                <option value="Progressive">Progressive</option>
+                                <option value="Executive">Executive</option>
+                            </select>
+                        </td>
+                        <td><input type="number" class="new-price" placeholder="Цена" min="0" step="1000" required></td>
+                    `;
+                    tbody.appendChild(row);
+                }
+
+                // 3. Фолбэк таблица (если бэкенд не работает)
+                function generateFallbackTable() {
+                    const tbody = document.getElementById('tableBody');
+                    tbody.innerHTML = '';
+                    
+                    for (let i = 1; i <= 5; i++) {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>
+                                <select id="model${i}">
+                                    <option value=""></option>
+                                    <option value="Dongfeng Mage">Dongfeng Mage</option>
+                                    <option value="Dongfeng Huge">Dongfeng Huge</option>
+                                </select>
+                            </td>
+                            <td><input type="text" id="vin${i}" placeholder="Введите VIN"></td>
+                            <td><input type="text" id="color${i}" placeholder="Цвет"></td>
+                            <td>
+                                <select id="package${i}">
+                                    <option value="Modern">Modern</option>
+                                    <option value="Emotion">Emotion</option>
+                                    <option value="Progressive">Progressive</option>
+                                    <option value="Executive">Executive</option>
+                                </select>
+                            </td>
+                            <td><input type="text" id="price${i}" placeholder="Цена"></td>
+                        `;
+                        tbody.appendChild(row);
+                    }
+                }
+
+                // 4. Кнопка "Добавить"
+                document.getElementById('addButton').addEventListener('click', async function() {
+                    const newRow = document.querySelector('.new-car-row');
+                    
+                    if (!newRow) {
+                        alert('Строка для добавления не найдена!');
+                        return;
+                    }
+                    
+                    // Получаем значения
+                    const brandSelect = newRow.querySelector('.new-brand');
+                    const brandValue = brandSelect.value;
+                    
+                    // Разделяем brand и model если нужно
+                    let brand = brandValue;
+                    let model = '';
+                    
+                    // Если в значении есть пробел, разделяем на brand и model
+                    if (brandValue && brandValue.includes(' ')) {
+                        const parts = brandValue.split(' ');
+                        brand = parts[0]; // "Dongfeng"
+                        model = parts.slice(1).join(' '); // "Mage" или "Huge"
+                    }
+                    
+                    const carData = {
+                        brand: brand,
+                        model: model,
+                        vin: newRow.querySelector('.new-vin').value,
+                        color: newRow.querySelector('.new-color').value,
+                        status: newRow.querySelector('.new-package').value || 'Modern', // Сохраняем как status
+                        year: 2024,
+                        priceCents: Math.round(parseFloat(newRow.querySelector('.new-price').value || 0) * 100)
+                    };
+                    
+                    // Валидация
+                    if (!carData.brand || !carData.vin || !carData.color) {
+                        alert('Заполните все обязательные поля!');
+                        return;
+                    }
+                    
+                    if (carData.priceCents <= 0) {
+                        alert('Укажите корректную цену!');
+                        return;
+                    }
+                    
+                    try {
+                        const token = localStorage.getItem('token');
+                        const response = await fetch('http://localhost:3001/cars', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${token}`
+                            },
+                            body: JSON.stringify(carData)
+                        });
+                        
+                        if (response.ok) {
+                            const result = await response.json();
+                            alert('Авто успешно добавлено!');
+                            loadCars(); // Перезагружаем таблицу
+                        } else {
+                            const errorText = await response.text();
+                            alert('Ошибка сохранения: ' + errorText);
+                        }
+                    } catch (error) {
+                        alert('Ошибка соединения: ' + error.message);
+                    }
+                });
+
+                // 5. Кнопка "Удалить"
+                document.getElementById('deleteButton').addEventListener('click', async function() {
+                    if (selectedCarIds.length === 0) {
+                        alert('Выделите авто для удаления');
+                        return;
+                    }
+                    
+                    if (!confirm(`Удалить ${selectedCarIds.length} авто?`)) return;
+                    
+                    try {
+                        const token = localStorage.getItem('token');
+                        
+                        for (const carId of selectedCarIds) {
+                            await fetch(`http://localhost:3001/cars/${carId}`, {
+                                method: 'DELETE',
+                                headers: {
+                                    'Authorization': `Bearer ${token}`
+                                }
+                            });
+                        }
+                        
+                        selectedCarIds = [];
+                        loadCars();
+                        
+                    } catch (error) {
+                        alert('Ошибка удаления: ' + error.message);
+                    }
+                });
+
+                // 6. Добавляем обработчик выбора строк для удаления
+                document.addEventListener('click', function(e) {
+                    const row = e.target.closest('tr');
+                    if (row && row.dataset.id && !row.classList.contains('new-car-row')) {
+                        const carId = parseInt(row.dataset.id);
+                        
+                        if (row.classList.contains('selected')) {
+                            // Снимаем выделение
+                            row.classList.remove('selected');
+                            selectedCarIds = selectedCarIds.filter(id => id !== carId);
+                        } else {
+                            // Добавляем выделение
+                            row.classList.add('selected');
+                            selectedCarIds.push(carId);
+                        }
+                    }
+                });
+
+                // 7. Запуск при загрузке страницы
+                document.addEventListener('DOMContentLoaded', loadCars);
+
+                // 8. Добавляем CSS для выделенных строк
+                const style = document.createElement('style');
+                style.textContent = `
+                    tr.selected {
+                        background-color: #e3f2fd !important;
+                    }
+                    
+                    tr.selected td {
+                        border-color: #2196f3 !important;
+                    }
+                    
+                    .new-car-row input, 
+                    .new-car-row select {
+                        width: 90%;
+                        padding: 6px;
+                        border: 1px solid #ddd;
+                        border-radius: 4px;
+                    }
+                    
+                    .new-car-row td {
+                        padding: 8px !important;
+                    }
+                `;
+                document.head.appendChild(style); //скрипт таблицы склад FIN
+        </script>  
+        <!-- <script>
+            setTimeout(() => {
+            // Вариант 2: автоматически
+            window.location.href = window.location.href.split('?')[0] + '?refresh=' + Date.now();
+            }, 2000);
+        </script> -->
+  </body>
+</html>  
+        
